@@ -5,45 +5,50 @@
 
 using namespace std;
 
+template <class T>
 struct node
 {
-    int data;
+    T data;
     node *next;
 };
 
+template <class T>
 class list
 {
     node *a;
     public:
     list(){a=NULL;}
-    void create(int);
+    void create(T);
     void create();
     void print();
-    void deletenode(int);
-    void searchnode(int);
-    void insertf(int);
-    void inserta(int);
-    void insertb(int);
-    void deletef();
-    void deletee();
-    void deletea(int);
-    void deletelist();
-    node* msort(node*);
-    node* merge(node*, node*);
+    void deletenode(T);
+    void searchnode(T);
+    void insertf(T);    //Insert in front.
+    void inserta(T);    //Insert after the given node.
+    void insertb(T);    //Insert before the given node.
+    void deletef();     //Delete the first node.
+    void deletee();     //Delete the end node.
+    void deletea(T);    //Delete after the given node.
+    void deletelist();  //Delete the entire list.
+    node* msort(node*); //Recursive function to perform merge sort
+    node* merge(node*, node*);  //Function to merge the two partitiion created during merge sort.
     void quit();
-    void msort();
-    void menu();
-    void fncall(int);
+    void msort();       //A public function to call the actual msort function.
+    void menu();        //To present the available operations to be perfomed on the linked list.
+    void fncall(int);   //Function to call the desired function chosen during the execution of menu().
 };
 
-void list::msort()
+template <class T>
+void list<T>::msort()
 {
     a=msort(a);
 }
 
-void list::create()
+template <class T>
+void list<T>::create()
 {
-    int n, x;
+    int n;
+    T x;
     cout<< "Enter the number of elements -> ";
     cin>>n;
     while(n--)
@@ -54,11 +59,12 @@ void list::create()
     }
 }
 
-void list::inserta(int x)
+template <class T>
+void list<T>::inserta(T x)
 {
     node *p, *q;
-    int xe;
-    cout<< "Enter a number -> ";
+    T xe;
+    cout<< "Enter data -> ";
     cin>>xe;
     p= new node;
     p->data=xe;
@@ -76,12 +82,13 @@ void list::inserta(int x)
     }
 }
 
-void list::insertb(int x)
+template <class T>
+void list<T>::insertb(T x)
 {
     node *p, *q, *r;
     p= new node;
-    int xe;
-    cout<< "Enter a number -> ";
+    T xe;
+    cout<< "Enter data -> ";
     cin>>xe;
     p= new node;
     p->data=xe;
@@ -104,45 +111,50 @@ void list::insertb(int x)
     END:;
 }
 
-void list::deletef()
+template <class T>
+void list<T>::deletef()
 {
     node *p;
     p=a;
     a=a->next;
-    delete(p);
+    delete p;
 }
 
-void list::deletee()
+template <class T>
+void list<T>::deletee()
 {
     node *p, *q;
     for (p=a;p->next!=NULL;p=p->next)
         q=p;
     q->next=NULL;
-    delete(p);
+    delete p;
 }
 
-void list::deletea(int x)
+template <class T>
+void list<T>::deletea(T x)
 {
     node  *q, *p;
     for(q=a;q!=NULL&&q->data!=x;q=q->next);
     p=q->next;
     q->next=p->next;
-    delete(p);
+    delete p;
 }
 
-void list::deletelist()
+template <class T>
+void list<T>::deletelist()
 {
     node *p, *q;
     for (q=a;q!=NULL;)
     {
         p=q;
         q=q->next;
-        delete(p);
+        delete p;
     }
     a=NULL;
 }
 
-void list::create(int x)
+template <class T>
+void list<T>::create(T x)
 {
     node *p, *q;
     p= new node;
@@ -157,14 +169,16 @@ void list::create(int x)
     }
 }
 
-void list::print()
+template <class T>
+void list<T>::print()
 {
     node *p;
     for (p=a;p!=NULL;p=p->next)
         cout<<" "<<p->data;
 }
 
-void list::deletenode(int x)
+template <class T>
+void list<T>::deletenode(T x)
 {
     node *p, *q;
     if (a->data==x)
@@ -176,7 +190,7 @@ void list::deletenode(int x)
             if (p->data==x)
             {
                 q->next=p->next;
-                delete(p);
+                delete p;
                 break;
             }
             else
@@ -188,7 +202,8 @@ void list::deletenode(int x)
     }
 }
 
-void list::searchnode(int x)
+template <class T>
+void list<T>::searchnode(T x)
 {
     node *p, *q;
     for (p=a;p!=NULL;p=p->next)
@@ -203,7 +218,8 @@ void list::searchnode(int x)
         cout<<"\nElement not found.";
 }
 
-void list::insertf(int x)
+template <class T>
+void list<T>::insertf(T x)
 {
     node *p;
     p= new node;
@@ -212,7 +228,8 @@ void list::insertf(int x)
     a=p;
 }
 
-node* list::msort(node *p)
+template <class T>
+node* list<T>::msort(node *p)
 {
     node *b, *c, *k, *l;
     if (p->next!=NULL)
@@ -236,7 +253,8 @@ node* list::msort(node *p)
         return p;
 }
 
-node* list::merge(node *L1, node *L2)
+template <class T>
+node* list<T>::merge(node *L1, node *L2)
 {
     node *p, *q, *r, *a;
     a=NULL;
@@ -276,7 +294,8 @@ node* list::merge(node *L1, node *L2)
     return a;
 }
 
-void list::menu()
+template <class T>
+void list<T>::menu()
 {
     int c;
     do{
@@ -303,15 +322,17 @@ void list::menu()
     }while(true);
 }
 
-int getinput()
+template <class T>
+T getinput()
 {
     cout<< "Enter a number -> ";
-    int x;
+    T x;
     cin>>x;
     return x;
 }
 
-void list::fncall(int x)
+template <class T>
+void list<T>::fncall(int x)
 {
     switch(x)
     {
@@ -332,7 +353,7 @@ void list::fncall(int x)
 
 int main()
 {
-    list L1;
+    list <int> L1;
     L1.menu();
     return 0;
 }
