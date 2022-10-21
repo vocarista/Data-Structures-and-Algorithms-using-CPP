@@ -28,7 +28,6 @@ class list
     void deletee();
     void deletea(int);
     void deletelist();
-    void merge(node*,node*,node*);
     node* msort(node*);
     node* merge(node*, node*);
     void quit();
