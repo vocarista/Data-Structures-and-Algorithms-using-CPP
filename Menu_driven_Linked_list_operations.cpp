@@ -9,13 +9,13 @@ template <class T>
 struct node
 {
     T data;
-    node *next;
+    node<T> *next;
 };
 
 template <class T>
 class list
 {
-    node *a;
+    node<T> *a;
     public:
     list(){a=NULL;}
     void create(T);
@@ -30,8 +30,8 @@ class list
     void deletee();     //Delete the end node.
     void deletea(T);    //Delete after the given node.
     void deletelist();  //Delete the entire list.
-    node* msort(node*); //Recursive function to perform merge sort
-    node* merge(node*, node*);  //Function to merge the two partitiion created during merge sort.
+    node<T>* msort(node<T>*); //Recursive function to perform merge sort
+    node<T>* merge(node<T>*, node<T>*);  //Function to merge the two partitiion created during merge sort.
     void quit();
     void msort();       //A public function to call the actual msort function.
     void menu();        //To present the available operations to be perfomed on the linked list.
@@ -62,11 +62,11 @@ void list<T>::create()
 template <class T>
 void list<T>::inserta(T x)
 {
-    node *p, *q;
+    node<T> *p, *q;
     T xe;
     cout<< "Enter data -> ";
     cin>>xe;
-    p= new node;
+    p= new node<T>;
     p->data=xe;
     p->next=NULL;
 
@@ -85,12 +85,12 @@ void list<T>::inserta(T x)
 template <class T>
 void list<T>::insertb(T x)
 {
-    node *p, *q, *r;
-    p= new node;
+    node<T> *p, *q, *r;
+    p= new node<T>;
     T xe;
     cout<< "Enter data -> ";
     cin>>xe;
-    p= new node;
+    p= new node<T>;
     p->data=xe;
     p->next=NULL;
 
@@ -114,7 +114,7 @@ void list<T>::insertb(T x)
 template <class T>
 void list<T>::deletef()
 {
-    node *p;
+    node<T> *p;
     p=a;
     a=a->next;
     delete p;
@@ -123,7 +123,7 @@ void list<T>::deletef()
 template <class T>
 void list<T>::deletee()
 {
-    node *p, *q;
+    node<T> *p, *q;
     for (p=a;p->next!=NULL;p=p->next)
         q=p;
     q->next=NULL;
@@ -133,7 +133,7 @@ void list<T>::deletee()
 template <class T>
 void list<T>::deletea(T x)
 {
-    node  *q, *p;
+    node<T>  *q, *p;
     for(q=a;q!=NULL&&q->data!=x;q=q->next);
     p=q->next;
     q->next=p->next;
@@ -143,7 +143,7 @@ void list<T>::deletea(T x)
 template <class T>
 void list<T>::deletelist()
 {
-    node *p, *q;
+    node<T> *p, *q;
     for (q=a;q!=NULL;)
     {
         p=q;
@@ -156,8 +156,8 @@ void list<T>::deletelist()
 template <class T>
 void list<T>::create(T x)
 {
-    node *p, *q;
-    p= new node;
+    node<T> *p, *q;
+    p= new node<T>;
     p->data=x;
     p->next=NULL;
     if (a==NULL)
@@ -172,7 +172,7 @@ void list<T>::create(T x)
 template <class T>
 void list<T>::print()
 {
-    node *p;
+    node<T> *p;
     for (p=a;p!=NULL;p=p->next)
         cout<<" "<<p->data;
 }
@@ -180,7 +180,7 @@ void list<T>::print()
 template <class T>
 void list<T>::deletenode(T x)
 {
-    node *p, *q;
+    node<T> *p, *q;
     if (a->data==x)
         deletef();
     else
@@ -205,7 +205,7 @@ void list<T>::deletenode(T x)
 template <class T>
 void list<T>::searchnode(T x)
 {
-    node *p, *q;
+    node <T> *p, *q;
     for (p=a;p!=NULL;p=p->next)
     {
         if (p->data==x)
@@ -221,17 +221,17 @@ void list<T>::searchnode(T x)
 template <class T>
 void list<T>::insertf(T x)
 {
-    node *p;
-    p= new node;
+    node<T> *p;
+    p= new node<T>;
     p->data=x;
     p->next=a;
     a=p;
 }
 
 template <class T>
-node* list<T>::msort(node *p)
+node<T>* list<T>::msort(node<T> *p)
 {
-    node *b, *c, *k, *l;
+    node<T> *b, *c, *k, *l;
     if (p->next!=NULL)
     {
         b=p;
@@ -254,9 +254,9 @@ node* list<T>::msort(node *p)
 }
 
 template <class T>
-node* list<T>::merge(node *L1, node *L2)
+node<T>* list<T>::merge(node<T> *L1, node<T> *L2)
 {
-    node *p, *q, *r, *a;
+    node<T> *p, *q, *r, *a;
     a=NULL;
     p=L1, q=L2;
     if (p->data<q->data)
